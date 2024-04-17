@@ -36,10 +36,7 @@ export default defineEventHandler(async (event) => {
 
 	const { accessToken, refreshToken } = generateTokens(user);
 
-	await createRefreshToken({
-		token: refreshToken,
-		userId: user.id,
-	});
+	await createRefreshToken(user.id, refreshToken);
 
 	sendRefreshToken(event, refreshToken);
 

@@ -1,5 +1,14 @@
+import type { User } from "@prisma/client";
 import { createUser } from "~/server/db/Users";
 import { userTransformer } from "~/server/transformers/users";
+
+export interface UserData {
+	username: string,
+	email: string,
+	password: string,
+	name: string,
+	profileImage: string,
+}
 
 export default defineEventHandler(async (event) => {
 	const { body } = await readBody(event);
@@ -20,7 +29,7 @@ export default defineEventHandler(async (event) => {
 		);
 	}
 
-	const userData = {
+	const userData: UserData = {
 		username,
 		email,
 		password,
@@ -28,7 +37,7 @@ export default defineEventHandler(async (event) => {
 		profileImage: "https://picsum.photos/200/200",
 	};
 
-	const user = await createUser(userData);
+	const user: User = await createUser(userData);
 
 	return {
 		body: userTransformer(user),

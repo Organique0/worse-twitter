@@ -1,6 +1,7 @@
+import type { User } from "@prisma/client";
 import jwt from "jsonwebtoken";
 
-const generateAccessToken = (user) => {
+const generateAccessToken = (user: User) => {
 	const config = useRuntimeConfig();
 
 	return jwt.sign({ userId: user.id }, config.jwtAccessSecret, {
@@ -8,7 +9,7 @@ const generateAccessToken = (user) => {
 	});
 };
 
-const generateRefreshToken = (user) => {
+const generateRefreshToken = (user: User) => {
 	const config = useRuntimeConfig();
 
 	return jwt.sign({ userId: user.id }, config.jwtRefreshSecret, {
@@ -16,7 +17,7 @@ const generateRefreshToken = (user) => {
 	});
 };
 
-export const generateTokens = (user) => {
+export const generateTokens = (user: User) => {
 	const accessToken = generateAccessToken(user);
 	const refreshToken = generateRefreshToken(user);
 	return {
@@ -25,7 +26,7 @@ export const generateTokens = (user) => {
 	};
 };
 
-export const sendRefreshToken = (event, token) => {
+export const sendRefreshToken = (event: any, token: string) => {
 	setCookie(event, "refresh_token", token, {
 		httpOnly: true,
 		sameSite: true,

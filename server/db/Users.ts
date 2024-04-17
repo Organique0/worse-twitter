@@ -1,7 +1,8 @@
 import client from ".";
 import bcrypt from "bcrypt";
+import type { UserData } from "../api/auth/register.post";
 
-export const createUser = (userData) => {
+export const createUser = (userData: UserData) => {
 	const finalUserData = {
 		...userData,
 		password: bcrypt.hashSync(userData.password, 10),
@@ -11,7 +12,7 @@ export const createUser = (userData) => {
 	});
 };
 
-export const getUserByUsername = (username) => {
+export const getUserByUsername = (username: string) => {
 	return client.user.findUnique({
 		where: {
 			username,
