@@ -4,7 +4,8 @@ import { getUserById } from "../db/Users";
 
 export default defineEventHandler(async (event) => {
   const endpoints = [
-    '/api/auth/user'
+    '/api/auth/user',
+    '/api/user/tweets'
   ];
 
   const isHandledByThisMiddleware = endpoints.some(endpoint => {
@@ -21,15 +22,18 @@ export default defineEventHandler(async (event) => {
   const token = event.node.req.headers['authorization']?.split(' ')[1];
 
   if (!token) {
-    return;
+    return sendError(event, createError({
+      statusMessage: "no token",
+      statusCode: 401,
+    }));
   }
 
   const decoded = decodeAccessToken(token);
 
   if (!decoded) {
     return sendError(event, createError({
-      statusMessage: "unauthorized",
       statusCode: 401,
+      statusMessage: 'could not decode'
     }));
   };
 
@@ -38,7 +42,11 @@ export default defineEventHandler(async (event) => {
     const user = await getUserById(userId);
 
     event.context.auth = { user };
-  } catch (error) {
-    return;
+  } catch (error: any) {
+    return sendError(event, createError({
+      statusMessage: "Could not retrieve the user data",
+      statusText: error,
+      statusCode: 401,
+    }));
   }
 })
