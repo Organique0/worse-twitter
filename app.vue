@@ -1,9 +1,12 @@
 <template>
   <div :class="{ 'dark': darkMode }">
     <div class="bg-white dark:bg-dim-900">
-      <div class="min-h-full">
-        <div class="grid grid-cols-12 mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:gap-10">
+      <div v-if="isAuthLoading">
+        <div>loading</div>
+      </div>
 
+      <div v-if="user" class="min-h-full">
+        <div class="grid grid-cols-12 mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:gap-10">
           <div class="md:block xs-col-span-1 xl:col-span-2">
             <div class="sticky top-0">
               <SidebarLeft />
@@ -19,12 +22,20 @@
               <SidebarRight />
             </div>
           </div>
-
         </div>
       </div>
+
+      <AuthPage v-else />
     </div>
   </div>
 </template>
 <script setup>
-const darkMode = ref(true);
+  const darkMode = ref(true);
+  const { useAuthUser, initAuth, } = useAuth();
+  const user = useAuthUser();
+
+
+  onBeforeMount(() => {
+    initAuth();
+  })
 </script>

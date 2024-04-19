@@ -1,5 +1,5 @@
 import type { User } from "@prisma/client";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const generateAccessToken = (user: User) => {
 	const config = useRuntimeConfig();
@@ -15,6 +15,26 @@ const generateRefreshToken = (user: User) => {
 	return jwt.sign({ userId: user.id }, config.jwtRefreshSecret, {
 		expiresIn: "4h",
 	});
+};
+
+export const decodeRefreshToken = (token: string) => {
+	const config = useRuntimeConfig();
+
+	try {
+		return jwt.verify(token, config.jwtRefreshSecret) as JwtPayload;
+	} catch (error) {
+		return null;
+	}
+};
+
+export const decodeAccessToken = (token: string) => {
+	const config = useRuntimeConfig();
+
+	try {
+		return jwt.verify(token, config.jwtAccessSecret) as JwtPayload;
+	} catch (error) {
+		return null;
+	}
 };
 
 export const generateTokens = (user: User) => {

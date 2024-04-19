@@ -8,3 +8,10 @@ export const createRefreshToken = (userId: string, refreshToken: string) => {
 	});
 };
 
+export const getRefreshTokenByToken = (token: string) => {
+	return client.refreshToken.findUnique({
+		where: {
+			token
+		}
+	})
+}

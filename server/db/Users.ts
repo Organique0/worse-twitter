@@ -19,3 +19,11 @@ export const getUserByUsername = (username: string) => {
 		},
 	});
 };
+
+export const getUserById = (UserId: string) => {
+	return client.user.findUnique({
+		where: {
+			id: UserId,
+		},
+	});
+};
