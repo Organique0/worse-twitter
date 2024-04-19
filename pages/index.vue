@@ -1,10 +1,12 @@
 <template>
     <div>
         <MainSection title="Home" :loading="loading">
-            this is our homepage
+            {{ user }}
         </MainSection>
     </div>
 </template>
 <script setup>
-const loading = ref(false);
+    const loading = ref(false);
+    const { useAuthUser } = useAuth();
+    const user = useAuthUser();
 </script>
