@@ -1,8 +1,3 @@
-<script setup>
-    import { HomeIcon } from "@heroicons/vue/24/solid";
-    import { HashtagIcon, BellIcon, InboxIcon, BookmarkIcon, DocumentTextIcon, UserIcon, EllipsisHorizontalIcon } from "@heroicons/vue/24/outline";
-    const { defaultTransition } = useTailwindConfig();
-</script>
 <template>
     <div class="h-screen flex flex-col">
         <div class="px-4 my-3 rounded-full hover:bg-blue-50 w-min dark:hover:bg-white/20" :class="defaultTransition">
@@ -77,6 +72,28 @@
                     More
                 </template>
             </SidebarLeftTab>
+
+            <div class="hidden xl:block">
+                <UIButton liquid size="lg">
+                    <span class="font-bold">
+                        Tweet
+                    </span>
+                </UIButton>
+            </div>
+
+            <div class="block xl:hidden">
+                <UIButton>
+                    <div class="w-6 h-6 font-bold">
+                        <PencilIcon />
+                    </div>
+                </UIButton>
+            </div>
         </div>
     </div>
 </template>
+
+<script setup>
+    import { HomeIcon } from "@heroicons/vue/24/solid";
+    import { HashtagIcon, BellIcon, InboxIcon, BookmarkIcon, DocumentTextIcon, UserIcon, EllipsisHorizontalIcon, PencilIcon } from "@heroicons/vue/24/outline";
+    const { defaultTransition } = useTailwindConfig();
+</script>
