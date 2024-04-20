@@ -6,13 +6,16 @@
       </div>
 
       <div class="w-full p-2">
-        <textarea v-model="text"
+        <textarea placeholder="What's happening" v-model="text"
           class="w-full h-10 text-lg text-gray-900 placeholder:text-gray-400 bg-transparent border-0 dark:text-white focus:ring-0"></textarea>
       </div>
     </div>
 
-    <div>
-
+    <div class="p-4 pl-16">
+      <UCarousel v-slot="{ item }" :items="mediaFiles" :ui="{ item: 'snap-start basis-full sm:basis-1/2 lg:basis-1/3' }"
+        class="">
+        <CldImage :src="item.secure_url" width="200" height="200" alt="My Awesome Image" class="rounded-2xl px-1" />
+      </UCarousel>
     </div>
 
     <div class="flex p-2 pl-14">
@@ -99,14 +102,19 @@
   });
 
   function handleFormSubmit(event) {
-    emits('onSubmit', {
-      text: text.value,
-      mediaFiles: mediaFiles.value
-    });
+    if (text.value != '') {
+      emits('onSubmit', {
+        text: text.value,
+        mediaFiles: mediaFiles.value
+      });
+      mediaFiles.value = [{}];
+      text.value = '';
+    }
   };
 
   function handleUpload(event) {
     const url = { secure_url: event._rawValue.info.secure_url, public_id: event._rawValue.info.public_id };
+    console.log(event);
     mediaFiles.value.push(url);
   }
 

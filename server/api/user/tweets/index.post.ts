@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
   const response = await new Promise<FormParseResponse>((resolve, reject) => {
     form.parse(event.node.req, (err, fields) => {
       if (err) {
-        reject(err);
+        reject("could not parse form");
       }
       resolve({ fields });
     });

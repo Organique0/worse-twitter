@@ -1,6 +1,5 @@
 <template>
     <div class="flex flex-col">
-
         <SidebarRightPreviewCard title="What's happening">
             <SidebarRightPreviewCardItem v-for="whatsHappening in whatsHappening">
                 <div>
@@ -36,37 +35,37 @@
     </div>
 </template>
 <script setup>
-const whatsHappening = ref([
-    {
-        title: "SpaceX",
-        count: "18.8k Tweets"
-    },
-    {
-        title: "#CodingIsFun",
-        count: "18.8k Tweets"
-    },
-    {
-        title: "#ArtForAll",
-        count: "18.8k Tweets"
-    },
-]);
+    const whatsHappening = ref([
+        {
+            title: "SpaceX",
+            count: "18.8k Tweets"
+        },
+        {
+            title: "#CodingIsFun",
+            count: "18.8k Tweets"
+        },
+        {
+            title: "#ArtForAll",
+            count: "18.8k Tweets"
+        },
+    ]);
 
-const whoToFollow = ref([
-    {
-        name: "Joe Biden",
-        handle: "@joebiden",
-        image: "https://picsum.photos/200/200"
-    },
-    {
-        name: "Joe Biden",
-        handle: "@joebiden",
-        image: "https://picsum.photos/200/200"
-    },
-    {
-        name: "Joe Biden",
-        handle: "@joebiden",
-        image: "https://picsum.photos/200/200"
-    },
+    const whoToFollow = ref([
+        {
+            name: "Joe Biden",
+            handle: "@joebiden",
+            image: "https://picsum.photos/200/200"
+        },
+        {
+            name: "Joe Biden",
+            handle: "@joebiden",
+            image: "https://picsum.photos/200/200"
+        },
+        {
+            name: "Joe Biden",
+            handle: "@joebiden",
+            image: "https://picsum.photos/200/200"
+        },
 
-])
+    ])
 </script>

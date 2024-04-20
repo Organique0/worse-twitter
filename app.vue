@@ -7,21 +7,23 @@
 
       <div v-else-if="user" class="min-h-full">
         <div class="grid grid-cols-12 mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:gap-10">
-          <div class="md:block xs-col-span-1 xl:col-span-2">
+
+          <div class="col-span-2">
             <div class="sticky top-0">
               <SidebarLeft />
             </div>
           </div>
 
-          <main class="col-span-11 sm:col-span-8 xl:col-span-6">
+          <main class="col-span-10 md:col-span-6">
             <router-view />
           </main>
 
-          <div class="hidden md:block xl:col-span-4 md:col-span-3">
+          <div class="hidden md:block md:col-span-4">
             <div class="sticky top-0">
               <SidebarRight />
             </div>
           </div>
+
         </div>
       </div>
 
