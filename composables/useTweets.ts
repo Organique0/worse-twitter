@@ -1,5 +1,3 @@
-import type { Tweet } from "@prisma/client";
-
 export interface mediaFilesType {
   secure_url: string,
   public_id: string,

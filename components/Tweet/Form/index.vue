@@ -15,7 +15,7 @@
 
   async function handleFormSubmit(data) {
     try {
-      const response = await postTweet(data);
+      await postTweet(data);
     } catch (error) {
       console.log(error);
     }

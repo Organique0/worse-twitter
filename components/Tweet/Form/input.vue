@@ -108,8 +108,6 @@
   function handleUpload(event) {
     const url = { secure_url: event._rawValue.info.secure_url, public_id: event._rawValue.info.public_id };
     mediaFiles.value.push(url);
-    //console.log("upload");
-    //console.log(mediaFiles.value);
   }
 
   function handleWidgetClose(event) {

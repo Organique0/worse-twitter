@@ -20,8 +20,6 @@ export interface MediaFileData {
   tweetId: string
 }
 
-type MediaFile = formidable.File | undefined;
-
 export default defineEventHandler(async (event) => {
   const form = formidable({});
 
@@ -35,12 +33,7 @@ export default defineEventHandler(async (event) => {
   });
 
   const { fields } = response;
-  /*   if (fields.formData) {
-      console.log(fields.formData);
-      const parsed = JSON.parse(fields.formData[0]);
-      console.log(parsed);
-    } */
-  //console.log(JSON.parse(fields.formData[0]));
+
   const parsed: undefined | mediaFilesType[] = fields.formData && JSON.parse(fields.formData[0]);
 
   const userId: string = event.context?.auth?.user?.id;
