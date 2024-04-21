@@ -2,15 +2,17 @@ import formidable from "formidable";
 import { mediaFilesType } from "~/composables/useTweets";
 import { createMediaFile } from "~/server/db/mediaFiles";
 import { createTweet } from "~/server/db/tweets";
-import { tweetTransformer } from "~/server/transformers/tweets";
+
+
 
 interface FormParseResponse {
   fields: formidable.Fields<string>;
 }
 
-export interface TweetData {
+export interface PostTweetData {
   text: string,
-  authorId: string
+  authorId: string,
+  replyToId?: string,
 }
 
 export interface MediaFileData {
@@ -33,6 +35,7 @@ export default defineEventHandler(async (event) => {
   });
 
   const { fields } = response;
+  console.log(fields);
 
   const parsed: undefined | mediaFilesType[] = fields.formData && JSON.parse(fields.formData[0]);
 
@@ -42,12 +45,19 @@ export default defineEventHandler(async (event) => {
     return sendError(event, createError({
       statusCode: 401,
       statusMessage: 'Text is required'
-    }))
-  }
-  const tweetData: TweetData = {
+    }));
+  };
+
+  const tweetData: PostTweetData = {
     text: fields.text.join(''),
     authorId: userId,
   };
+
+  if (fields.replyTo && fields.replyTo[0] != 'null') {
+    const replyTo = fields.replyTo[0];
+    tweetData.replyToId = replyTo;
+  }
+
   const tweet = await createTweet(tweetData);
 
   if (parsed) {

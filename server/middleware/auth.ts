@@ -5,7 +5,8 @@ import { getUserById } from "../db/Users";
 export default defineEventHandler(async (event) => {
   const endpoints = [
     '/api/auth/user',
-    '/api/user/tweets'
+    '/api/user/tweets',
+    //'/api/tweets'
   ];
 
   const isHandledByThisMiddleware = endpoints.some(endpoint => {
@@ -23,7 +24,7 @@ export default defineEventHandler(async (event) => {
 
   if (!token) {
     return sendError(event, createError({
-      statusMessage: "no token",
+      statusMessage: "no token (middleware)",
       statusCode: 401,
     }));
   }
@@ -33,7 +34,7 @@ export default defineEventHandler(async (event) => {
   if (!decoded) {
     return sendError(event, createError({
       statusCode: 401,
-      statusMessage: 'could not decode'
+      statusMessage: 'could not decode (middleware)'
     }));
   };
 
@@ -44,7 +45,7 @@ export default defineEventHandler(async (event) => {
     event.context.auth = { user };
   } catch (error: any) {
     return sendError(event, createError({
-      statusMessage: "Could not retrieve the user data",
+      statusMessage: "Could not retrieve the user data (middleware)",
       statusText: error,
       statusCode: 401,
     }));
