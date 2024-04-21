@@ -22,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "nuxt": "^3.11.2",
+    "oh-vue-icons": "^1.0.0-rc3",
     "url-pattern": "^1.0.3",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"

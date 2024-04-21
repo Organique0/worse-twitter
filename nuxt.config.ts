@@ -12,6 +12,7 @@ export default defineNuxtConfig({
   },
   imports: {
 
-  }
+  },
+  plugins: ["~/plugins/oh-vue-icons.ts"]
 
 })

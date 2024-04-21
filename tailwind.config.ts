@@ -1,6 +1,19 @@
+import { safelist, variants } from "#tailwind-config";
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	darkMode: "class",
+
+	safelist: [
+		{
+			pattern: /text-(red|green|blue|yellow|indigo|purple|pink|gray|white|black)-(100|400)/,
+			variants: ["group-hover"]
+		},
+		{
+			pattern: /bg-(red|green|blue|yellow|indigo|purple|pink|gray|white|black)-(100|400)/,
+			variants: ["group-hover"]
+		},
+	],
 
 	theme: {
 		screens: {
