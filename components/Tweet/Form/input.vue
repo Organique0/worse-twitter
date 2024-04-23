@@ -6,7 +6,7 @@
       </div>
 
       <div class="w-full p-2">
-        <textarea placeholder="What's happening" v-model="text"
+        <textarea :placeholder="props.placeholder" v-model="text"
           class="w-full h-10 text-lg text-gray-900 placeholder:text-gray-400 bg-transparent border-0 dark:text-white focus:ring-0"></textarea>
       </div>
     </div>
@@ -20,8 +20,7 @@
 
     <div class="flex p-2 pl-14">
       <div class="flex w-full text-white">
-        <CldUploadWidget v-slot="{ open }" uploadPreset="twitterUploadImage" :onUpload="handleUpload"
-          :onClose="handleWidgetClose">
+        <CldUploadWidget v-slot="{ open }" uploadPreset="twitterUploadImage" :onUpload="handleUpload">
           <div class="p-2 text-blue-400 rounded-full hover:bg-blue-50 dark:hover:bg-dim-800 cursor-pointer"
             @click="open">
             <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
@@ -106,27 +105,27 @@
     user: {
       type: Object,
       required: true
+    },
+    placeholder: {
+      type: String,
+      required: true
     }
   });
 
   function handleFormSubmit(event) {
     emits('onSubmit', {
       text: text.value,
-      mediaFiles: mediaFiles.value
+      mediaFiles: mediaFiles.value,
     });
-    mediaFiles.value = [{}];
+    mediaFiles.value = [];
     text.value = '';
 
   };
 
   function handleUpload(event) {
     const url = { secure_url: event._rawValue.info.secure_url, public_id: event._rawValue.info.public_id };
-    console.log(event);
     mediaFiles.value.push(url);
   }
 
-  function handleWidgetClose(event) {
-    console.log("close");
-  }
 
 </script>

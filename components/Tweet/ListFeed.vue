@@ -9,7 +9,7 @@
 
     <div class="pb-4 border-b hover:bg-gray-100 dark:hover:bg-dim-300" :class="[twitterBorderColor, defaultTransition]"
       v-for="tweet in props.tweets">
-      <TweetItem :tweet="tweet" :key="tweet.id" />
+      <TweetItem :tweet="tweet" :key="tweet.id" @click.native="redirect(tweet)" compact />
     </div>
   </div>
 </template>
@@ -24,4 +24,9 @@
   });
 
   const isEmptyArray = computed(() => props.tweets.length === 0);
+
+  function redirect(tweet) {
+    navigateTo({ path: `/status/${tweet.id}`, state: { tweet } });
+  }
+
 </script>

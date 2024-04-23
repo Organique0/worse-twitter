@@ -2,6 +2,7 @@ import formidable from "formidable";
 import { mediaFilesType } from "~/composables/useTweets";
 import { createMediaFile } from "~/server/db/mediaFiles";
 import { createTweet } from "~/server/db/tweets";
+import { tweetTransformer } from "~/server/transformers/tweets";
 
 
 
@@ -35,7 +36,7 @@ export default defineEventHandler(async (event) => {
   });
 
   const { fields } = response;
-  console.log(fields);
+  //console.log(fields);
 
   const parsed: undefined | mediaFilesType[] = fields.formData && JSON.parse(fields.formData[0]);
 
@@ -53,7 +54,8 @@ export default defineEventHandler(async (event) => {
     authorId: userId,
   };
 
-  if (fields.replyTo && fields.replyTo[0] != 'null') {
+
+  if (fields.replyTo && fields.replyTo[0] != 'undefined') {
     const replyTo = fields.replyTo[0];
     tweetData.replyToId = replyTo;
   }
@@ -92,6 +94,6 @@ export default defineEventHandler(async (event) => {
   //await Promise.all(filePromises);
 
   return {
-    tweet: fields
+    tweet: tweetTransformer(tweet)
   }
 })

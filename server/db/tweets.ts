@@ -13,3 +13,15 @@ export const getTweets = <T>(params = {}): Promise<T[]> => {
         ...params
     }) as Promise<T[]>;
 };
+
+
+export const getTweetById = (tweetId: string, params = {}) => {
+    return client.tweet.findUnique({
+        ...params,
+        where: {
+            //@ts-expect-error
+            ...params.where,
+            id: tweetId
+        }
+    });
+}
