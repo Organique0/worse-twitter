@@ -1,8 +1,7 @@
 import type { User } from "@prisma/client";
+import { UserWithoutPass } from "../api/user/tweets/index.post";
 
-interface UserWithoutPass extends Omit<User, 'password' | 'createdAt' | 'updatedAt'> {
-	handle: string,
-}
+
 
 export const userTransformer = (user: User): UserWithoutPass => {
 	return {

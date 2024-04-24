@@ -1,10 +1,11 @@
+import { Tweet } from "@prisma/client";
 import client from ".";
-import { PostTweetData } from "../api/user/tweets/index.post";
+import { MyTweetType, PostTweetData } from "../api/user/tweets/index.post";
 
-export const createTweet = (tweetData: PostTweetData) => {
+export const createTweet = (tweetData: PostTweetData): Promise<MyTweetType> => {
     return client.tweet.create({
         data: tweetData
-    });
+    }) as unknown as Promise<MyTweetType>;
 };
 
 

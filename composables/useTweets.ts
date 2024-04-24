@@ -1,3 +1,5 @@
+import type { Tweet } from "@prisma/client";
+
 export interface mediaFilesType {
   secure_url: string,
   public_id: string,
@@ -39,11 +41,35 @@ export default () => {
         reject(err);
       }
     })
-  }
+  };
+
+  const closePostTweetModal = () => {
+    const postTweetModal = usePostTweetModal();
+    postTweetModal.value = false;
+  };
+
+  const openPostTweetModal = (tweet = null) => {
+    const postTweetModal = usePostTweetModal();
+    postTweetModal.value = true;
+
+    setReplyTo(tweet);
+  };
+
+  const usePostTweetModal = () => useState('post_tweet_modal', () => false);
+  const useReplyTweet = () => useState<Tweet | null>('reply_tweet', () => null);
+
+  const setReplyTo = (tweet: Tweet | null) => {
+    const replyTweet = useReplyTweet();
+    replyTweet.value = tweet;
+  };
 
   return {
     postTweet,
     getHomeTweets,
-    getTweetById
+    getTweetById,
+    closePostTweetModal,
+    usePostTweetModal,
+    openPostTweetModal,
+    useReplyTweet,
   }
 }

@@ -1,7 +1,11 @@
+import { Tweet } from "@prisma/client";
 import { mediaFileTransformer } from "./mediaFiles";
 import { userTransformer } from "./users";
+//@ts-expect-error
 import human from "human-time";
-export const tweetTransformer = (tweet) => {
+import { MyTweetType, TransformedTweet } from "../api/user/tweets/index.post";
+
+export const tweetTransformer = (tweet: MyTweetType): TransformedTweet => {
 	return {
 		id: tweet.id,
 		text: tweet.text,

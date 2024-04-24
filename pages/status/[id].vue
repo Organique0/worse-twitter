@@ -25,6 +25,9 @@
   };
 
   async function getTweet() {
+    if (useRoute().params.id == undefined) {
+      return;
+    }
     loading.value = true;
     try {
       const response = await getTweetById(getTweetIdFromRoute());

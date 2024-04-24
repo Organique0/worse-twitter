@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center justify-around w-full">
-    <TweetItemActionsIcon color="blue" :size="size">
+    <TweetItemActionsIcon @on-click="emits('onCommentClick')" color="blue" :size="size">
 
       <template v-slot:icon="{ classes }">
         <v-icon name="hi-chat" :class="classes" />
@@ -53,6 +53,7 @@
 </template>
 
 <script setup>
+  const emits = defineEmits(['onCommentClick']);
   const props = defineProps({
     tweet: {
       type: Object,

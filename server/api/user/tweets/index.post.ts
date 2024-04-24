@@ -1,3 +1,4 @@
+import { MediaFile, User } from "@prisma/client";
 import formidable from "formidable";
 import { mediaFilesType } from "~/composables/useTweets";
 import { createMediaFile } from "~/server/db/mediaFiles";
@@ -5,9 +6,12 @@ import { createTweet } from "~/server/db/tweets";
 import { tweetTransformer } from "~/server/transformers/tweets";
 
 
-
 interface FormParseResponse {
   fields: formidable.Fields<string>;
+}
+
+export interface UserWithoutPass extends Omit<User, 'password' | 'createdAt' | 'updatedAt'> {
+  handle: string,
 }
 
 export interface PostTweetData {
@@ -21,6 +25,36 @@ export interface MediaFileData {
   providerPublicId: string,
   userId: string,
   tweetId: string
+}
+export interface MyTweetType {
+  id: string;
+  text: string;
+  createdAt: Date;
+  updatedAt: Date;
+  author: User;
+  authorId: string;
+  replyToId?: string;
+  replyTo?: MyTweetType;
+  replies: MyTweetType[];
+  MediaFiles: MediaFile[];
+}
+
+export interface TransformedTweet {
+  id: string,
+  text: string,
+  author: UserWithoutPass | null,
+  replies: TransformedTweet[],
+  repliesCount: number,
+  postedAtHuman: string,
+  MediaFiles: {
+    id: string,
+    url: string,
+  }[],
+  replyTo: {
+    id: string,
+    text: string,
+  } | null,
+
 }
 
 export default defineEventHandler(async (event) => {
@@ -55,7 +89,7 @@ export default defineEventHandler(async (event) => {
   };
 
 
-  if (fields.replyTo && fields.replyTo[0] != 'undefined') {
+  if (fields.replyTo && fields.replyTo[0] != 'undefined' && fields.replyTo[0] != 'null') {
     const replyTo = fields.replyTo[0];
     tweetData.replyToId = replyTo;
   }
