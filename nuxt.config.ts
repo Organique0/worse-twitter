@@ -13,6 +13,9 @@ export default defineNuxtConfig({
   imports: {
 
   },
-  plugins: ["~/plugins/oh-vue-icons.ts"]
+  plugins: ["~/plugins/oh-vue-icons.ts"],
+  colorMode: {
+    preference: 'light'
+  }
 
 })

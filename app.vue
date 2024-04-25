@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'dark': darkMode }">
+  <div>
     <div class="bg-white dark:bg-dim-900">
       <div v-if="isAuthLoading">
         <LoadingPage />
@@ -36,17 +36,20 @@
   </div>
 </template>
 <script setup>
-  const darkMode = ref(true);
+  const colorMode = useColorMode();
+  const isDark = computed(() => colorMode.value === 'dark');
+  const toggleDarkMode = () => {
+    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark';
+  };
 
   const { useAuthUser, initAuth, useAuthLoading } = useAuth();
   const user = useAuthUser();
   const isAuthLoading = useAuthLoading();
-
   const { closePostTweetModal, openPostTweetModal, useReplyTweet } = useTweets();
-
   const emitter = useEmitter();
   const replyTweet = useReplyTweet();
 
+  emitter.$on('toggleDarkMode', toggleDarkMode);
   emitter.$on('replyTweet', (tweet) => {
     openPostTweetModal(tweet);
   });
