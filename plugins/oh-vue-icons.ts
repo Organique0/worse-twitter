@@ -13,3 +13,4 @@ addIcons(HiRefresh, HiChat, HiHeart, HiUpload, HiSearch, HiChevronDown);
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component("v-icon", OhVueIcon);
 });
+//hello
