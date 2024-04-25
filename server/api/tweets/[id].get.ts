@@ -1,7 +1,8 @@
 import { getTweetById } from "~/server/db/tweets";
 import { tweetTransformer } from "~/server/transformers/tweets";
+import { MyTweetType } from "../user/tweets/index.post";
 
-type MyFancyAuthType = {
+export type MyFancyAuthType = {
   id: string
 }
 
@@ -9,7 +10,7 @@ export default defineEventHandler(async (event) => {
 
   const { id } = event.context.params as unknown as MyFancyAuthType;
 
-  const tweet = await getTweetById(id, {
+  const tweet = await getTweetById<MyTweetType>(id, {
     include: {
       author: true,
       MediaFiles: true,
@@ -33,6 +34,6 @@ export default defineEventHandler(async (event) => {
   });
 
   return {
-    'tweet': tweetTransformer(tweet),
+    'tweet': tweet && tweetTransformer(tweet),
   }
 })

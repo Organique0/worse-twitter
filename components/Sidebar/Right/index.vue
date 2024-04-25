@@ -1,5 +1,14 @@
 <template>
     <div class="flex flex-col">
+        <div class="relative m-2">
+            <div class="flex items-center h-full pl-4 text-gray-600 dark:text-white cursor-pointer absolute">
+                <div class="w-6 h-6">
+                    <v-icon name="hi-search" @click="handleSearch" />
+                </div>
+            </div>
+            <input v-model="search" type="text" placeholder="Search"
+                class="flex items-center w-full pl-12 text-sm font-normal text-gray-100 bg-gray-200 border border-gray-200 rounded-full shadow dark:bg-dim-400 dark:border-dim-400 focus:bg-gray-100 dark:focus:bg-dim-900 focus:outline-none focus:border-blue-200 h-9">
+        </div>
         <SidebarRightPreviewCard title="What's happening">
             <SidebarRightPreviewCardItem v-for="whatsHappening in whatsHappening">
                 <div>
@@ -35,6 +44,17 @@
     </div>
 </template>
 <script setup>
+    const search = defineModel();
+
+    function handleSearch() {
+        useRouter().push({
+            path: '/search',
+            query: {
+                query: search.value
+            }
+        });
+    };
+
     const whatsHappening = ref([
         {
             title: "SpaceX",

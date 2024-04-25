@@ -17,11 +17,12 @@ export default () => {
     });
   };
 
-  const getHomeTweets = () => {
+  const getTweets = (params = {}) => {
     return new Promise((resolve, reject) => {
       try {
         const response = useFetchApi('/api/tweets', {
-          method: 'GET'
+          method: 'GET',
+          params
         });
         resolve(response);
       } catch (err) {
@@ -65,7 +66,7 @@ export default () => {
 
   return {
     postTweet,
-    getHomeTweets,
+    getTweets,
     getTweetById,
     closePostTweetModal,
     usePostTweetModal,

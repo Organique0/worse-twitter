@@ -16,7 +16,7 @@ export const getTweets = <T>(params = {}): Promise<T[]> => {
 };
 
 
-export const getTweetById = (tweetId: string, params = {}) => {
+export const getTweetById = <T>(tweetId: string, params = {}): Promise<T> => {
     return client.tweet.findUnique({
         ...params,
         where: {
@@ -24,5 +24,5 @@ export const getTweetById = (tweetId: string, params = {}) => {
             ...params.where,
             id: tweetId
         }
-    });
+    }) as unknown as Promise<T>;
 }
