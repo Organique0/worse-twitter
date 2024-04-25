@@ -4,10 +4,11 @@ import {
     HiChat,
     HiHeart,
     HiUpload,
-    HiSearch
+    HiSearch,
+    HiChevronDown
 } from "oh-vue-icons/icons";
 
-addIcons(HiRefresh, HiChat, HiHeart, HiUpload, HiSearch);
+addIcons(HiRefresh, HiChat, HiHeart, HiUpload, HiSearch, HiChevronDown);
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component("v-icon", OhVueIcon);

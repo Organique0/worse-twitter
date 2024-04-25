@@ -10,7 +10,7 @@
 
           <div class="col-span-2">
             <div class="sticky top-0">
-              <SidebarLeft @on-tweet="handleOpenTweetModal" />
+              <SidebarLeft @on-tweet="handleOpenTweetModal" :user="user" @on-logout="handleUserLogout" />
             </div>
           </div>
 
@@ -42,7 +42,7 @@
     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark';
   };
 
-  const { useAuthUser, initAuth, useAuthLoading } = useAuth();
+  const { useAuthUser, initAuth, useAuthLoading, logout } = useAuth();
   const user = useAuthUser();
   const isAuthLoading = useAuthLoading();
   const { closePostTweetModal, openPostTweetModal, useReplyTweet } = useTweets();
@@ -53,7 +53,7 @@
   emitter.$on('replyTweet', (tweet) => {
     openPostTweetModal(tweet);
   });
-
+  emitter.$on('onLogout', handleUserLogout);
   onBeforeMount(() => {
     initAuth();
   });
@@ -73,4 +73,7 @@
     openPostTweetModal(null);
   };
 
+  function handleUserLogout() {
+    logout();
+  }
 </script>

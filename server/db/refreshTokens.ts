@@ -14,4 +14,12 @@ export const getRefreshTokenByToken = (token: string) => {
 			token
 		}
 	})
-}
+};
+
+export const removeRefreshToken = (token: string) => {
+	return client.refreshToken.delete({
+		where: {
+			token
+		}
+	})
+};
