@@ -3,13 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build:nuxt": "nuxt build",
-    "build:prisma": "npx prisma generate",
-    "build": "npm run build:nuxt && npm run build:prisma",
+    "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@heroicons/vue": "^2.1.3",
